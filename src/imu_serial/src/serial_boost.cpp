@@ -75,7 +75,6 @@ namespace IMU {
 
     void serial_boost::processBuffer() {
         while (receive_buffer_.size() >= 12) {
-            // 至少要有帧头+type+data(8字节)+crc，共1+1+8+1=11
             // 查找帧头 0x55
             auto it = std::find(receive_buffer_.begin(), receive_buffer_.end(), 0x55);
             if (it == receive_buffer_.end()) {
@@ -85,7 +84,7 @@ namespace IMU {
             if (it != receive_buffer_.begin()) {
                 receive_buffer_.erase(receive_buffer_.begin(), it);
             }
-            const size_t frameSize = 11;
+            constexpr size_t frameSize = 11;
             if (receive_buffer_.size() < frameSize) {
                 break; // 数据不足，等待更多数据
             }

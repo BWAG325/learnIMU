@@ -35,7 +35,7 @@ namespace IMU {
         unsigned int baud_rate;
         bool connected;
 
-        std::string typeToString(uint8_t type);
+        static std::string typeToString(uint8_t type);
 
         bool connect();
         bool read();
